@@ -1,0 +1,12 @@
+---
+title: "Linear Model Project"
+author: "Jieqi Tu (jtu22)"
+date: "11/30/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
