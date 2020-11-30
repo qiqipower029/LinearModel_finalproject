@@ -20,20 +20,28 @@ $${\textbf{y}}=\begin{pmatrix}
 \end{pmatrix}_{30\times1}$$\\
 $$\textbf{X}=\begin{pmatrix} 
 1 & 15.0\\ 1 & 14.5\\ 1 & 14.8\\ 1 & 13.6\\ 1 & 25.6\\ \vdots & \vdots\\ 1 & 16.7\\ 1 & 15.4\\
-\end{pmatrix}_{30\times 2}$$.
-Before running into questions, we firstly want to show that $$\textbf{X}^{'} \textbf{X} = \begin{bmatrix} 
-30 & 464.1\\ 464.1 & 8166.29 \end{bmatrix}$$, 
-$$(\textbf{X}^{'} \textbf{X})^{-1}=\begin{bmatrix} 
-0.2758892 & -0.0156791\\ -0.0156791 & 0.001013517 \end{bmatrix}$$,
+\end{pmatrix}_{30\times 2}$$
+Before running into questions, we firstly want to show $$result1: \textbf{X}^{'} \textbf{X} = \begin{bmatrix} 
+30 & 464.1\\ 464.1 & 8166.29 \end{bmatrix}$$
+$$result2:(\textbf{X}^{'} \textbf{X})^{-1}=\begin{bmatrix} 
+0.2758892 & -0.0156791\\ -0.0156791 & 0.001013517 \end{bmatrix}$$
+$$result3:\textbf{X}^{'} \textbf{y} = \begin{bmatrix}1017405\\19589339\end{bmatrix}$$, and $$result 4:s^2=165242295.59$$
 
-```{r q1}
+Below is my code to show these four results.
+```{r q1 show}
 # Import data
 x = c(rep(1, 30), 15.0, 14.5, 14.8, 13.6, 25.6, 23.4, 24.4, 23.3, 19.5, 21.2, 22.8, 21.7, 19.8, 21.3, 9.5,
       8.4, 9.8, 11.0, 8.3, 9.9, 8.6, 6.4, 7.0, 8.2, 17.4, 15.0, 15.2, 16.4, 16.7, 15.4)
 y = c(2622, 22148, 26751, 18036, 96305, 104170, 72594, 49512, 32207, 48218, 70453, 47661, 38138, 54045, 14814,
       17502, 14007, 19443, 7573, 14191, 9714, 8076, 5304, 10728, 43243, 25319, 28028, 41792, 49499, 25312)
 
+# Create design matrix
 x.matrix = matrix(x, ncol = 2, nrow = 30, byrow = F)
+
+# Result 1
 t(x.matrix) %*% x.matrix
+
+# Result 2
+
 ```
 
