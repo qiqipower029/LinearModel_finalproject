@@ -118,7 +118,9 @@ The 95% confidence interval on the slope of the regression line is [3063.87, 474
 Find a 95% joint confidence region on the pair of parameters $(\beta_0, \beta_1)$
 ```{r q1 e}
 # Calculate joint 95% confidence region
-joint.ci.bonf(model1, conf=0.95)
 plot(ellipse(model1, level = 0.95, type = "l"))
 ```
 
+The pairwise confidence region is plotted.
+
+## Question 2
