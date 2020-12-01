@@ -8,9 +8,10 @@ editor_options:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE)
 library(tidyverse)
 library(asbio)
+library(ellipse)
 ```
 
 ## Question 1
@@ -38,7 +39,8 @@ Before running into questions, we firstly want to show $$result1: \textbf{X}^{'}
 30 & 464.1\\ 464.1 & 8166.29 \end{bmatrix}$$
 $$result2:(\textbf{X}^{'} \textbf{X})^{-1}=\begin{bmatrix} 
 0.2758892 & -0.0156791\\ -0.0156791 & 0.001013517 \end{bmatrix}$$
-$$result3:\textbf{X}^{'} \textbf{y} = \begin{bmatrix}1017405\\19589339\end{bmatrix}$$, and $$result 4:s^2=165242295.59$$
+$$result3:\textbf{X}^{'} \textbf{y} = \begin{bmatrix}1017405\\19589339\end{bmatrix}$$
+$$result 4:s^2=165242295.59$$
 
 Below is my code to show these four results.
 ```{r q1 show}
@@ -62,6 +64,9 @@ solve(result1)
 t(x.matrix) %*% y
 
 # Result 4
+density = c(15.0, 14.5, 14.8, 13.6, 25.6, 23.4, 24.4, 23.3, 19.5, 21.2, 22.8, 21.7, 19.8, 21.3, 9.5,
+            8.4, 9.8, 11.0, 8.3, 9.9, 8.6, 6.4, 7.0, 8.2, 17.4, 15.0, 15.2, 16.4, 16.7, 15.4)
+data = data.frame(y, density)
 model1 = lm(y~density, data = data)
 summary(model1)$sigma^2
 ```
@@ -71,7 +76,6 @@ All these four results are confirmed.
 #### (a)
 Estimate $\boldsymbol{\beta}$.
 ```{r q1 a}
-data = data.frame(y, density)
 # Check the distribution of y (it is approximately normally-distributed)
 plot(density(y))
 # Fit a linear model
@@ -114,6 +118,7 @@ The 95% confidence interval on the slope of the regression line is [3063.87, 474
 Find a 95% joint confidence region on the pair of parameters $(\beta_0, \beta_1)$
 ```{r q1 e}
 # Calculate joint 95% confidence region
-joint.confint(model1, conf=0.95)
+joint.ci.bonf(model1, conf=0.95)
+plot(ellipse(model1, level = 0.95, type = "l"))
 ```
 
