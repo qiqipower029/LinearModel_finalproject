@@ -22,6 +22,17 @@ $$\textbf{X}=\begin{bmatrix}
 1 & 15.0\\ 1 & 14.5\\ 1 & 14.8\\ 1 & 13.6\\ 1 & 25.6\\ \vdots & \vdots\\ 1 & 16.7\\ 1 & 15.4\\
 \end{bmatrix}_{30\times 2}$$\
 Here the first column in the design matrix allows estimation of the y-intercept and the second column contains the values of our variable (density).\
+Then we construct a linear model:
+$$\textbf{y}=\mathbf{X} \boldsymbol{\beta + \epsilon}$$
+Here, we also have:
+$$\boldsymbol{\beta}=
+\begin{bmatrix} 
+\beta_0\\ \beta_1\\
+\end{bmatrix}_{2\times 1}$$
+$$\boldsymbol{\epsilon}=\begin{bmatrix} 
+\epsilon_1\\ \epsilon_2\\  \vdots\\  \epsilon_{30}\\
+\end{bmatrix}_{30\times1}$$
+Here we also assume that $$\boldsymbol{\epsilon}\sim N(0, \sigma^2)$$
 Before running into questions, we firstly want to show $$result1: \textbf{X}^{'} \textbf{X} = \begin{bmatrix} 
 30 & 464.1\\ 464.1 & 8166.29 \end{bmatrix}$$
 $$result2:(\textbf{X}^{'} \textbf{X})^{-1}=\begin{bmatrix} 
@@ -54,16 +65,7 @@ model1 = lm(y~density, data = data)
 summary(model1)$sigma^2
 ```
 
-All these four results are confirmed. Then we construct a linear model:
-$$\textbf{y}=\mathbf{X} \boldsymbol{\beta + \epsilon}$$
-Here, we also have:
-$$\boldsymbol{\beta}=
-\begin{bmatrix} 
-\beta_0\\ \beta_1\\
-\end{bmatrix}_{2\times 1}$$
-$$\boldsymbol{\epsilon}=\begin{bmatrix} 
-\epsilon_1\\ \epsilon_2\\  \vdots\\  \epsilon_{30}\\
-\end{bmatrix}_{30\times1}$$
+All these four results are confirmed. 
 
 #### (a)
 Estimate $\boldsymbol{\beta}$.
