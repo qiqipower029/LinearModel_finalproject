@@ -100,13 +100,15 @@ The 95% confidence interval of the point estimate is [5925.235, 19212.5]. This m
 
 #### (c)
 Find a point estimate for the stiffness reading of an individual particleboard whose density is 10 $lb/ft^3$. Find a 95% prediction interval on the stiffness reading for such a board.
+The 95% confidence interval for $E(y|x^*)$ is calculated using the following formula:
+![image1](PI.jpg)
 ```{r q1 c}
 newdata = data.frame(
   density = 10
 )
 predict(model1, newdata = newdata, interval = "prediction")
 ```
-The point estimate is the same as what has been shown in part (b). The 95% prediction interval for this individual is [-14587.9, 39725.63]. This means 
+The point estimate is the same as what has been shown in part (b). The 95% prediction interval for this individual is [-14587.9, 39725.63]. This means
 
 #### (d)
 Find a 95% confidence interval on the slope of the regression line.
