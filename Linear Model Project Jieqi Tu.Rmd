@@ -85,7 +85,9 @@ From the result, we could see that, the estimates of $\boldsymbol{\beta}$ are: $
 #### (b)
 Find a point estimate for the mean stiffness reading when the density of the particleboard is 10 $lb/ft^3$. Find a 95% confidence interval on this mean reading.
 The 95% confidence interval for $E(y|x^*)$ is calculated using the following formula:
-![image1](CI.jpg)
+
+![Confidence Interval Calculation](CInew.jpg)
+
 Here the $x^*$ is the given value for the density particleboard.
 ```{r q1 b}
 newdata = data.frame(
@@ -109,7 +111,9 @@ The point estimate is the same as what has been shown in part (b). The 95% predi
 #### (d)
 Find a 95% confidence interval on the slope of the regression line.
 The 95% confidence interval for $E(y|x^*)$ is calculated using the following formula:
-![image2](PI.jpg)
+
+![Prediction Interval Calculation](PI.jpg)
+
 Here the $x^*$ is the given value for the density particleboard.
 
 ```{r q1 d}
@@ -233,7 +237,8 @@ Note that $\beta_0=\boldsymbol{t'\beta}$ where $$\boldsymbol{t'}=\begin{bmatrix}
 1 & 0 & 0 & 0
 \end{bmatrix}$$
 Show that $\beta_0$ is not estimable, thus showing that $\boldsymbol{\beta}$ is not estimable.
-In order to check the estimability, we want to verify whether $\boldsymbol{t'}(\boldsymbol{X'X})^c(\boldsymbol{X'X})=\boldsymbol{t'}$. If this statement holds, we could conclude that $\boldsymbol{\beta}$ is not estimable.
+By the definition of estimability, we want to check whether there is a solution the the system$\boldsymbol{(X'X)z=t}$. It is equivalent to see whether $r([\boldsymbol{X'X|t}])=r(\boldsymbol{X'X})$.
+We can simlify it, and it is also equivalent to verify whether $\boldsymbol{t'}(\boldsymbol{X'X})^c(\boldsymbol{X'X})=\boldsymbol{t'}$. If this statement holds, we could conclude that $\boldsymbol{\beta}$ is not estimable.
 ```{r q2 e}
 t = matrix(c(1, 0, 0, 0), nrow = 4, ncol = 1)
 t(t)%*% XprimeX.inverse %*% Xprime.x
