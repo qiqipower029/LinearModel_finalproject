@@ -180,4 +180,116 @@ From the results, we could see that $rank(\boldsymbol{X'X|X'y})= rank(\boldsymbo
 Therefore, the system of normal equations is consistent.
 
 #### (c)
+Find the conditional inverse of $\boldsymbol{X'X}$ based on the minor M where
+$$\boldsymbol{M}=\begin{bmatrix} 
+2 & 0 & 0 \\ 0 & 2 & 0\\ 0 & 0 & 2
+\end{bmatrix}$$
+```{r q2 c}
+# Step 1, find (M^{-1})'
+M = matrix(c(2, 0, 0,
+             0, 2, 0,
+             0, 0, 2), nrow = 3, ncol = 3, byrow = T)
+M.new = t(solve(M)); M.new #(M^{-1})'
 
+# Step 2, Replace M in X'X with (M^{-1})' and make all other entries in X'X zeros
+Xprime.x
+Xprime.x.replaced = matrix(c(0, 0, 0, 0,
+                             0, 0.5, 0, 0,
+                             0, 0, 0.5, 0,
+                             0, 0, 0, 0.5), ncol = 4, nrow = 4, byrow = T)
+
+# Step 3, transpose the resulting matrix
+XprimeX.inverse = t(Xprime.x.replaced)
+XprimeX.inverse
+
+# Verify the result
+Xprime.x %*% XprimeX.inverse %*% Xprime.x
+```
+
+Here the conditional inverse matrix of $\boldsymbol{X'X}$ based on M is
+$$\boldsymbol{M}=\begin{bmatrix} 
+0 & 0 & 0 & 0\\ 0 & 0.5 & 0 & 0\\ 0 & 0 & 0.5 & 0\\0 & 0 & 0 & 0.5
+\end{bmatrix}$$
+
+#### (d)
+Show that
+$$(\boldsymbol{X'X})^c(\boldsymbol{X'X})=\begin{bmatrix} 
+0 & 0 & 0 & 0\\ 1 & 1 & 0 & 0\\ 1 & 0 & 1 & 0\\1 & 0 & 0 & 1
+\end{bmatrix}$$
+```{r q2 d}
+XprimeX.inverse %*% Xprime.x
+
+```
+
+#### (e)
+Note that $\beta_0=\boldsymbol{t'\beta}$ where $$\boldsymbol{t'}=\begin{bmatrix} 
+1 & 0 & 0 & 0
+\end{bmatrix}$$
+Show that $\beta_0$ is not estimable, thus showing that $\boldsymbol{\beta}$ is not estimable.
+In order to check the estimability, we want to verify whether $\boldsymbol{t'}(\boldsymbol{X'X})^c(\boldsymbol{X'X})=\boldsymbol{t'}$. If this statement holds, we could conclude that $\boldsymbol{\beta}$ is not estimable.
+```{r q2 e}
+t = matrix(c(1, 0, 0, 0), nrow = 4, ncol = 1)
+t(t)%*% XprimeX.inverse %*% Xprime.x
+```
+
+Here we saw that this expression is not equal to $\boldsymbol{t'}$. Therefore $\beta_0$ is not estimable.
+
+#### (f)
+$\beta_1=\boldsymbol{l'\beta}$ where $$\boldsymbol{l'}=\begin{bmatrix} 
+0 & 1 & 0 & 0
+\end{bmatrix}$$
+Similarly, we can use the same strategy to check whether $\beta_1$ is estimable or not.
+```{r q2 f}
+l = matrix(c(0, 1, 0, 0), nrow = 4, ncol = 1)
+t(l)%*% XprimeX.inverse %*% Xprime.x
+```
+
+Still, it is not equal to $\boldsymbol{l'}$. So $\beta_1$ is also not estimable.
+
+#### (g)
+$\beta_3=\boldsymbol{h'\beta}$ where $$\boldsymbol{h'}=\begin{bmatrix} 
+0 & 0 & 0 & 1
+\end{bmatrix}$$
+Similarly, we can use the same strategy to check whether $\beta_3$ is estimable or not.
+```{r q2 g}
+h = matrix(c(0, 0, 0, 1), nrow = 4, ncol = 1)
+t(h)%*% XprimeX.inverse %*% Xprime.x
+```
+
+Still, it is not equal to $\boldsymbol{h'}$. So $\beta_3$ is also not estimable.
+
+#### (h)
+Consider the linear function $\beta_3-\beta_1$. Is this function estimable?
+$\beta_3-\beta_1=\boldsymbol{k'\beta}$ where $$\boldsymbol{k'}=\begin{bmatrix} 
+0 & -1 & 0 & 1
+\end{bmatrix}$$
+We can also check the estimability using the same method.
+```{r q2 h}
+k = matrix(c(0, -1, 0, 1), nrow = 4, ncol = 1)
+t(k)%*% XprimeX.inverse %*% Xprime.x
+```
+
+Since $\boldsymbol{k'}(\boldsymbol{X'X})^c(\boldsymbol{X'X})=\boldsymbol{k'}$. We can conclude that $\beta_3-\beta_1$ is estimable!!
+
+#### (i)
+Find two different solutions to the normal equations. Use each of them to estimate $\beta_3-\beta_1$. Are these estimates identical as indicated in Theorem 5.4.3?
+Let $\boldsymbol{z_1}$ and $\boldsymbol{z_2}$ be two solutions for the normal equation:
+$$\boldsymbol{(X'X)z}=\boldsymbol{X'y}$$
+Then we can easily find two solutions:
+$$\boldsymbol{z_1}=\begin{bmatrix} 
+1\\1\\1\\1
+\end{bmatrix}$$
+$$\boldsymbol{z_1}=\begin{bmatrix} 
+0\\2\\2\\2
+\end{bmatrix}$$
+```{r q2 i}
+# Estimates using z1
+z1 = matrix(c(1, 1, 1, 1), ncol = 1, nrow = 4)
+t(k) %*% z1
+
+# Estimates using z2
+z2 = matrix(c(0, 2, 2, 2), ncol = 1, nrow = 4)
+t(k) %*% z2
+```
+
+Therefore, the estimates are the same no matter what solution we used. This estimates are identical as indicated in Theorem 5.4.3.
